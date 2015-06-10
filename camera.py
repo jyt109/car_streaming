@@ -1,12 +1,16 @@
-from time import time
-
+import cv2
 
 class Camera(object):
-    """An emulated camera implementation that streams a repeated sequence of
-    files 1.jpg, 2.jpg and 3.jpg at a rate of one frame per second."""
-
     def __init__(self):
-        self.frames = [open(f + '.jpg', 'rb').read() for f in ['1', '2', '3']]
+        self.video = cv2.VideoCapture('car_traffic.mp4')
+
+    def __del__(self):
+        self.video.release()
 
     def get_frame(self):
-        return self.frames[int(time()) % 3]
+        success, image = self.video.read()
+        # We are using Motion JPEG, but OpenCV defaults to capture raw images,
+        # so we must encode it into JPEG in order to correctly display the
+        # video stream.
+        ret, jpeg = cv2.imencode('.jpg', image)
+        return jpeg.tobytes()
