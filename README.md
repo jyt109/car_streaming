@@ -1,4 +1,3 @@
-flask-video-streaming
-=====================
+## Car Streaming
 
-Supporting code for my article on [video streaming with Flask](http://blog.miguelgrinberg.com/post/video-streaming-with-flask).
+Simulating a live traffic feed using Flask
